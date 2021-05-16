@@ -6,4 +6,6 @@ public class Tags : MonoBehaviour
 {
     public const string Jogador = "Jogador";
     public const string Inimigo = "Inimigo";
+    public const string GameScene = "game";
+    public const string PontuacaoMaxima = "PontuacaoMaxima";
 }
