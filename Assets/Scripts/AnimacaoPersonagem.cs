@@ -14,8 +14,8 @@ public class AnimacaoPersonagem : MonoBehaviour
         meuAnimator.SetBool("Atacando", estado);
     }
 
-    public void Movimentar(float valorDeMovimento)
+    public void AnimarMovimento(Vector3 direcao)
     {
-        meuAnimator.SetFloat("Movendo", valorDeMovimento);
+        meuAnimator.SetFloat("Movendo", direcao.magnitude);
     }
 }

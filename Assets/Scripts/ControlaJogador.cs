@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ControlaJogador : MonoBehaviour
+public class ControlaJogador : MonoBehaviour, IMatavel
 {
-    public float Velocidade = 10;
     private Vector3 direcao;
     public LayerMask MascaraChao;
-    public GameObject TextoGameOver;
     public bool Vivo = true;
-    public int Vida = 100;
     public ControlaInterface scriptControlaInterface;
     public AudioClip SomDeDano;
     private MovimentoJogador meuMovimentoJogador;
     private AnimacaoPersonagem animacaoJogador;
+    public Status statusJogador;
     
     void Start()
     {
         Time.timeScale = 1;
         meuMovimentoJogador = GetComponent<MovimentoJogador>();
         animacaoJogador = GetComponent<AnimacaoPersonagem>();
+        statusJogador = GetComponent<Status>();
     }
     // Update is called once per frame
     void Update()
@@ -29,9 +28,9 @@ public class ControlaJogador : MonoBehaviour
         float eixoZ = Input.GetAxis("Vertical");
 
         direcao = new Vector3(eixoX, 0, eixoZ);
-        animacaoJogador.Movimentar(direcao.magnitude);
+        animacaoJogador.AnimarMovimento(direcao);
 
-        if(Vida <= 0)
+        if(statusJogador.Vida <= 0)
         {
             if(Input.GetButtonDown("Fire1"))
             {
@@ -41,19 +40,24 @@ public class ControlaJogador : MonoBehaviour
     }
     void FixedUpdate()
     {
-        meuMovimentoJogador.Movimentar(direcao, Velocidade);
+        meuMovimentoJogador.Movimentar(direcao, statusJogador.Velocidade);
         meuMovimentoJogador.RotacaoJogador(MascaraChao);
     }
     public void TomarDano(int dano)
     {
-        Vida -= dano;
+        statusJogador.Vida -= dano;
         scriptControlaInterface.AtualizarSliderVidaJogador();
         ControlaAudio.instancia.PlayOneShot(SomDeDano);
-        if(Vida <= 0)
+        if(statusJogador.Vida <= 0)
         {
-            Time.timeScale = 0;
-            TextoGameOver.SetActive(true);
+            Morrer();
         }
 
+    }
+
+    public void Morrer()
+    {
+        Time.timeScale = 0;
+        scriptControlaInterface.GameOver();
     }
 }
