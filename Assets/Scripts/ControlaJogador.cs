@@ -10,17 +10,17 @@ public class ControlaJogador : MonoBehaviour
     public LayerMask MascaraChao;
     public GameObject TextoGameOver;
     public bool Vivo = true;
-    private Rigidbody rigidbodyJogador;
-    private Animator animatorJogador;
     public int Vida = 100;
     public ControlaInterface scriptControlaInterface;
     public AudioClip SomDeDano;
+    private MovimentoJogador meuMovimentoJogador;
+    private AnimacaoPersonagem animacaoJogador;
     
     void Start()
     {
         Time.timeScale = 1;
-        rigidbodyJogador = GetComponent<Rigidbody>();
-        animatorJogador = GetComponent<Animator>();
+        meuMovimentoJogador = GetComponent<MovimentoJogador>();
+        animacaoJogador = GetComponent<AnimacaoPersonagem>();
     }
     // Update is called once per frame
     void Update()
@@ -29,16 +29,7 @@ public class ControlaJogador : MonoBehaviour
         float eixoZ = Input.GetAxis("Vertical");
 
         direcao = new Vector3(eixoX, 0, eixoZ);
-       
-
-        if(direcao != Vector3.zero)
-        {
-            animatorJogador.SetBool("Movendo", true);
-        }
-        else
-        {
-            animatorJogador.SetBool("Movendo", false);
-        }
+        animacaoJogador.Movimentar(direcao.magnitude);
 
         if(Vida <= 0)
         {
@@ -50,23 +41,8 @@ public class ControlaJogador : MonoBehaviour
     }
     void FixedUpdate()
     {
-        rigidbodyJogador.MovePosition
-            (rigidbodyJogador.position + 
-            (direcao * Velocidade * Time.deltaTime));
-
-        Ray raio = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(raio.origin, raio.direction, Color.red);
-
-        RaycastHit impacto;
-
-        if(Physics.Raycast(raio, out impacto, 100, MascaraChao))
-        {
-            Vector3 posicaoMiraJogador = impacto.point - transform.position;
-            posicaoMiraJogador.y = transform.position.y;
-
-            Quaternion novaRotacao = Quaternion.LookRotation(posicaoMiraJogador);
-            rigidbodyJogador.MoveRotation(novaRotacao);
-        }
+        meuMovimentoJogador.Movimentar(direcao, Velocidade);
+        meuMovimentoJogador.RotacaoJogador(MascaraChao);
     }
     public void TomarDano(int dano)
     {

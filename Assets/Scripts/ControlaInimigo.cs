@@ -5,40 +5,31 @@ using UnityEngine;
 public class ControlaInimigo : MonoBehaviour
 {
     public GameObject Jogador;
-    public float Velocidade = 5;
-    private Rigidbody rigidbodyInimigo;
+    public float Velocidade = 0;
     private Animator animatorInimigo;
+    private MovimentoPersonagem movimentaInimigo;
+    private AnimacaoPersonagem animacaoInimigo;
     // Start is called before the first frame update
     void Start()
     {
         Jogador = GameObject.FindWithTag("Jogador");
-        int geraTipoZumbi = Random.Range(1, 28);
-        transform.GetChild(geraTipoZumbi).gameObject.SetActive(true);
-        rigidbodyInimigo = GetComponent<Rigidbody>();
-        animatorInimigo = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        animacaoInimigo = GetComponent<AnimacaoPersonagem>();
+        movimentaInimigo = GetComponent<MovimentoPersonagem>();
+        AleatorizarZumbi();
     }
     void FixedUpdate()
     {
         float distancia = Vector3.Distance(transform.position, Jogador.transform.position);
         Vector3 direcao = Jogador.transform.position - transform.position;
-        Quaternion novaRotacao = Quaternion.LookRotation(direcao);
-        rigidbodyInimigo.MoveRotation(novaRotacao);
-
+        movimentaInimigo.Rotacionar(direcao);
         if (distancia > 2.5)
         {
-            rigidbodyInimigo.MovePosition
-            (rigidbodyInimigo.position + (direcao.normalized * Velocidade * Time.deltaTime));
-            animatorInimigo.SetBool("Atacando", false);
+            movimentaInimigo.Movimentar(direcao, Velocidade);
+            animacaoInimigo.Atacar(false);
         }
         else
         {
-            animatorInimigo.SetBool("Atacando", true);
+            animacaoInimigo.Atacar(true);
         }
         
     }
@@ -47,5 +38,11 @@ public class ControlaInimigo : MonoBehaviour
     {
         int dano = Random.Range(20, 30);
         Jogador.GetComponent<ControlaJogador>().TomarDano(dano);
+    }
+
+    void AleatorizarZumbi()
+    {
+        int geraTipoZumbi = Random.Range(1, 28);
+        transform.GetChild(geraTipoZumbi).gameObject.SetActive(true);
     }
 }

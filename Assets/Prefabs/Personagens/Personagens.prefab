@@ -2530,6 +2530,8 @@ GameObject:
   - component: {fileID: 333287556}
   - component: {fileID: 333287555}
   - component: {fileID: 3400097538723611095}
+  - component: {fileID: 4577878739787343862}
+  - component: {fileID: 4481464464626552982}
   m_Layer: 0
   m_Name: Personagens
   m_TagString: Jogador
@@ -2642,6 +2644,9 @@ MonoBehaviour:
     m_Bits: 64
   TextoGameOver: {fileID: 0}
   Vivo: 1
+  Vida: 100
+  scriptControlaInterface: {fileID: 0}
+  SomDeDano: {fileID: 8300000, guid: 11949f62436378843948742f3e29f881, type: 3}
 --- !u!114 &3400097538723611095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2656,6 +2661,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bala: {fileID: 4560689342438790430, guid: 5187893943021b54293a3f927ea20cfa, type: 3}
   CanoDaArma: {fileID: 664822514}
+  SomDoTiro: {fileID: 8300000, guid: 55842c59419bcf2488e48ea511221be0, type: 3}
+--- !u!114 &4577878739787343862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884102019447498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8ce935f1b8d5445b6b9ab4cdaf5d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4481464464626552982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884102019447498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e634b7e916da03d49a5200e88412747b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1938851689004064
 GameObject:
   m_ObjectHideFlags: 0
