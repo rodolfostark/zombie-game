@@ -13,7 +13,9 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     private Vector3 posicaoAleatoria;
     private Vector3 direcao;
     private float contadorVagar;
-    private float tempoEntrePosicoesAleatorias = 4;
+    private float tempoEntrePosicoesAleatorias = 4f;
+    private float porgentagemGerarKitMedico = 0.1f;
+    public GameObject KitMedicoPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +29,11 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     {
         float distancia = Vector3.Distance(transform.position, Jogador.transform.position);
         animacaoInimigo.AnimarMovimento(direcao);
-        if (distancia > 15)
+        if (distancia > 15f)
         {
             Vagar();
         }
-        else if (distancia > 2.5)
+        else if (distancia > 2.5f)
         {
             direcao = Jogador.transform.position - transform.position;
             movimentaInimigo.Movimentar(direcao, statusInimigo.Velocidade);
@@ -54,7 +56,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
             contadorVagar += tempoEntrePosicoesAleatorias;
         }
 
-        bool ficouPertoOSuficiente = Vector3.Distance(transform.position, posicaoAleatoria) <= 0.05;
+        bool ficouPertoOSuficiente = Vector3.Distance(transform.position, posicaoAleatoria) <= 0.05f;
         if (ficouPertoOSuficiente == false)
         {
             direcao = posicaoAleatoria - transform.position;
@@ -64,7 +66,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     }
     Vector3 AleatorizarPosicao()
     {
-        Vector3 posicao = Random.insideUnitSphere * 10;
+        Vector3 posicao = Random.insideUnitSphere * 10f;
         posicao += transform.position;
         posicao.y = transform.position.y;
 
@@ -95,5 +97,14 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     {
         Destroy(gameObject);
         ControlaAudio.instancia.PlayOneShot(SomDeMorte);
+        VerificaGeracaoKitMedico(porgentagemGerarKitMedico);
+    }
+
+    void VerificaGeracaoKitMedico(float porcentagemGeracao)
+    {
+        if(Random.value <= porcentagemGeracao)
+        {
+            Instantiate(KitMedicoPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
