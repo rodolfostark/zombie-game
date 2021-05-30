@@ -22,9 +22,14 @@ public class Bala : MonoBehaviour
 
     void OnTriggerEnter(Collider objetoDeColisao)
     {
-        if(objetoDeColisao.tag.Equals(Tags.Inimigo))
+        switch(objetoDeColisao.tag)
         {
-            objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(danoDoTiro);
+            case Tags.Inimigo:
+                objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(danoDoTiro);
+                break;
+            case Tags.Chefe:
+                objetoDeColisao.GetComponent<ControlaChefe>().TomarDano(danoDoTiro);
+                break;
         }
         Destroy(gameObject);
     }

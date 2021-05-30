@@ -5,7 +5,7 @@ using UnityEngine;
 public class KitMedico : MonoBehaviour
 {
     private int quantidadeDeCura = 15;
-    private int tempoDeDestruicao = 5;
+    private int tempoDeDestruicao = 7;
 
     void Start()
     {
