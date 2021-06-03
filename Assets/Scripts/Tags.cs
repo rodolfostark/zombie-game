@@ -10,4 +10,5 @@ public class Tags : MonoBehaviour
     public const string PontuacaoMaxima = "PontuacaoMaxima";
     public const string Morrer = "Morrer";
     public const string Chefe = "ChefeDeFase";
+    public const string game = "game";
 }
