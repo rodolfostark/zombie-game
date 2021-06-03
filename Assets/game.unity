@@ -9909,17 +9909,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 999615990}
     m_Modifications:
-    - target: {fileID: 329177239, guid: f5d4c7095c7274ebf926e8ccc88e2f07, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1552275320654262, guid: f5d4c7095c7274ebf926e8ccc88e2f07, type: 3}
       propertyPath: m_Name
       value: Barril_Fogueira
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552275320654262, guid: f5d4c7095c7274ebf926e8ccc88e2f07, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4958319712614426, guid: f5d4c7095c7274ebf926e8ccc88e2f07, type: 3}
       propertyPath: m_RootOrder
